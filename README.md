@@ -45,7 +45,7 @@ genie -u || wsl -t RHWSL8
 
 # Known issues
 
-1. Sometimes `genie` may fail to initialise, reporting segmentation fault. Remember to terminate RHWSL8 instance on seeing this.
+1. Sometimes `genie` may fail to initialise, reporting `Failed to create CoreCLR, HRESULT: 0x80004005`. Remember to terminate RHWSL8 instance on seeing this.
 
 2. SELinux doesn't work. It's because the default WSL 2 kernel is not a SELinux kernel. I may compile a custom WSL 2 kernel for this, but that would be another story.
 
