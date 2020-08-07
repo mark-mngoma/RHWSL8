@@ -15,7 +15,7 @@ RUN dnf install -y polkit hostname && dnf clean all
 
 RUN curl -L https://github.com/arkane-systems/genie/releases/download/1.26/genie.tar.gz -o genie.tar.gz
 
-RUN tar -xpf genie.tar.gz && chmod -R o+r systemd-genie && \
+RUN tar -xpf genie.tar.gz && \
     cp -rpf systemd-genie/etc/* /etc/ && \
     cp -rpf systemd-genie/usr/bin/* /usr/local/bin && \
     cp -rpf systemd-genie/usr/lib/* /usr/lib && \
