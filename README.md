@@ -6,7 +6,7 @@
 
 The rootfs tarball of RHWSL built by yosukes has permission issues, causing the installation almost totally unusable. Therefore, I carried out my own implementation.
 
-Please note that anyone who's redistributing RHEL binaries or private images to any other 3rd parties is violating RHEL's EULA. This repository, while not including any Red Hat binaries at all, just provides a script that helps you install RHEL 8 on WSL 2, **using your own legal candidates**.
+Please note that anyone who's redistributing RHEL binaries or private images to any other 3rd parties is violating RHEL's EULA. This repository, while not including any Red Hat binaries at all, just provides a script that helps you install RHEL 8 on WSL 2, **using your own legal subscriptions**.
 
 # Pre-Installation & Installation
 
