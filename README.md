@@ -40,7 +40,7 @@ dnf groupinstall --allowerasing "Minimal Install"
 systemctl shutdown || systemctl reboot
 
 # Do
-genie -u || wsl -t RHWSL8
+wsl -t RHWSL8
 ```
 
 # Known issues
