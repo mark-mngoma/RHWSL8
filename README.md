@@ -10,7 +10,7 @@ Please note that anyone who's redistributing RHEL 8 binaries or private images t
 
 # Pre-Installation & Installation
 
-Run `make.sh` to bake the RHWSL8 rootfs tarball. This require you to have a working instance of WSL 2 (e.g. Debian10 from Windows Store) with Docker access.
+Run `make.sh` to bake the RHWSL8 rootfs tarball. This requires you to have a working instance of WSL 2 distro (e.g. Debian10 from Windows Store) with Docker access.
 
 ```
 wsl sh make.sh
@@ -46,6 +46,8 @@ genie -u || wsl -t RHWSL8
 # Known issues
 
 1. Sometimes `genie` may fail to initialise, reporting segmentation fault. Remember to terminate RHWSL8 instance on seeing this.
+
+2. SELinux doesn't work. It's because the default WSL 2 kernel is not a SELinux kernel. I may compile a custom WSL 2 kernel for this, but that would be another story.
 
 # Special thanks
 
