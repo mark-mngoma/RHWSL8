@@ -47,6 +47,8 @@ wsl -t RHWSL8
 
 1. Sometimes `genie` may fail to initialise, reporting `Failed to create CoreCLR, HRESULT: 0x80004005`. Remember to terminate RHWSL8 instance on seeing this.
 
+Update: It looks like `genie -u` is the main cause of this problem, which also breaks mounting in all WSL 2 instances. The workaround is avoid using `genie -u`, use `wsl -t` if necessary.
+
 2. SELinux doesn't work. It's because the default WSL 2 kernel is not a SELinux kernel. I may compile a custom WSL 2 kernel for this, but that would be another story.
 
 # Special thanks
