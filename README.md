@@ -6,11 +6,11 @@
 
 The rootfs tarball of RHWSL built by yosukes has permission issues, causing the installation almost totally unusable. Therefore, I carried out my own implementation.
 
-Please note that anyone who's redistributing RHEL 8 binaries or private images to any other 3rd parties is violating RHEL's EULA. This repository, while not including any Red Hat binaries at all, just provides a script that helps you install RHEL 8 on WSL 2, **using your own legal candidates**.
+Please note that anyone who's redistributing RHEL binaries or private images to any other 3rd parties is violating RHEL's EULA. This repository, while not including any Red Hat binaries at all, just provides a script that helps you install RHEL 8 on WSL 2, **using your own legal candidates**.
 
 # Pre-Installation & Installation
 
-Run `make.sh` to bake the RHWSL8 rootfs tarball. This requires you to have a working instance of WSL 2 distro (e.g. Debian10 from Windows Store) with Docker access.
+Run `make.sh` to bake the RHWSL8 rootfs tarball. This requires you to have a working instance of WSL 2 distro (e.g. Debian 10 from Windows Store) with Docker access.
 
 ```
 wsl sh make.sh
@@ -47,7 +47,7 @@ wsl -t RHWSL8
 
 1. Sometimes `genie` may fail to initialise, reporting `Failed to create CoreCLR, HRESULT: 0x80004005`. Remember to terminate RHWSL8 instance on seeing this.
 
-Update: It looks like `genie -u` is the main cause of this problem, which also breaks mounting in all WSL 2 instances. The workaround is avoid using `genie -u`, use `wsl -t` if necessary.
+Update: It looks like `genie -u` is the main cause of this problem, which also breaks mounting in all WSL 2 instances. The workaround is avoid using `genie -u`, use `wsl -t` if you have to.
 
 2. SELinux doesn't work. It's because the default WSL 2 kernel is not a SELinux kernel. I may compile a custom WSL 2 kernel for this, but that would be another story.
 
