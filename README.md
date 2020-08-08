@@ -10,6 +10,12 @@ Please note that anyone who's redistributing RHEL binaries or private images to 
 
 # Pre-Installation & Installation
 
+Update: Since `genie` is shipped with this rootfs tarball, make sure the default install version for new WSL distro is 2.
+
+```
+wsl --set-default-version 2
+```
+
 Run `make.sh` to bake the RHWSL8 rootfs tarball. This requires you to have a working instance of WSL 2 distro (e.g. Debian 10 from Windows Store) with Docker access.
 
 ```
@@ -18,13 +24,13 @@ wsl sh make.sh
 
 # Post-Installation
 
-1. Use `genie -s` to utilise the systemd at the price that losing the integration with Windows environment.
+1. If you want to utilise systemd, use `genie -s` at the price that losing the integration with Windows environment.
 
 ```
-wsl -d RHWSL8 genie -s
+wsl -d rhwsl8 genie -s
 ```
 
-If you use Windows Terminal, you might want to add `"commandline": "...\\RHWSL8.exe run genie -s",` to RHWSL8's configuration object.
+If you use Windows Terminal, you might want to add `"commandline": "wsl -d rhwsl8 genie -s",` to RHWSL8's configuration object.
 
 2. Register your installation with `subscription-manager` and install the `Server` environment group for a full RHEL 8 experience.
 
@@ -33,24 +39,39 @@ subscription-manager --register --auto-attach
 dnf groupinstall --allowerasing "Server"
 ```
 
-3. Do not attempt to execute any power management command while the systemd bottle is activated, always use `wsl -t`. You've been warned.
+3. Do not attempt to execute any power management command while the systemd bottle is activated, always use `wsl -t` or `wsl --shutdown`. You've been warned.
 
 ```
 # Don't do
-systemctl shutdown || systemctl reboot
+systemctl reboot || systemctl poweroff
 
 # Do
-wsl -t RHWSL8
+wsl -t rhwsl8 || wsl --shutdown
 ```
 
 # Known issues
 
-1. Sometimes `genie` may fail to initialise, reporting `Failed to create CoreCLR, HRESULT: 0x80004005`. Remember to terminate RHWSL8 instance on seeing this.
+1. Sometimes `genie` may fail to initialise, yielding `Failed to create CoreCLR, HRESULT: 0x80004005`. Remember to terminate RHWSL8 instance on seeing this.
 
-Update: It looks like `genie -u` is the main cause of this problem, which also breaks mounting in all WSL 2 instances. The workaround is avoid using `genie -u`, use `wsl -t` if you have to.
+Update: It looks like `genie -u` is the main cause of this problem, which also breaks mounting in all WSL 2 instances. The workaround is avoid using `genie -u`, use `wsl -t` or `wsl --shutdown` if you have to.
+
+```
+# Don't do
+wsl -d rhwsl8 genie -u
+
+# Do
+wsl -t rhwsl8 || wsl --shutdown
+wsl -d rhwsl8   # go ahead without systemd
+```
 
 2. SELinux doesn't work. It's because the default WSL 2 kernel is not a SELinux kernel. I may compile a custom WSL 2 kernel for this, but that would be another story.
 
 # Special thanks
 
 This method would not be possible without the elegant work of `genie` by Arkane Systems and `wsldl` by yuk7. Really appreciated your work, Mr. Arkane and yuk-san ;)
+
+# Future features
+
+- Xorg support for GUI applications, with Xserver deployed at Windows environment
+
+- Ship a custom WSL 2 kernel with SELinux support
