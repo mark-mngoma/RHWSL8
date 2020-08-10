@@ -16,10 +16,10 @@ Update: Since `genie` is shipped with this rootfs tarball, make sure the default
 wsl --set-default-version 2
 ```
 
-Run `make.sh` to bake the RHWSL8 rootfs tarball. This requires you to have a working instance of WSL 2 distro (e.g. Debian 10 from Windows Store) with Docker access.
+Run `install.sh` to bake the RHWSL8 rootfs tarball, register the distro and bootstrap a full RHEL 8 experience. This requires you to have a working instance of WSL 2 distro (e.g. Debian 10 from Windows Store) with Docker access.
 
 ```
-wsl sh make.sh
+wsl bash install.sh
 ```
 
 # Post-Installation
@@ -33,6 +33,8 @@ wsl -d rhwsl8 genie -s
 If you use Windows Terminal, you might want to add `"commandline": "wsl -d rhwsl8 genie -s",` to RHWSL8's configuration object.
 
 2. Register your installation with `subscription-manager` and install the `Server` environment group for a full RHEL 8 experience.
+
+Update: This is no longer needed due to the `post-install.sh` script.
 
 ```
 subscription-manager --register --auto-attach
