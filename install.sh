@@ -20,5 +20,5 @@ gzip -f rootfs.tar || exit $?
 echo "[*] Baking complete"
 echo
 
-echo "[*] source ./post-install.bash"
+echo "[*] source ./post-install.sh"
 source ./post-install.sh

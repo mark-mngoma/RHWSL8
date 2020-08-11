@@ -2,7 +2,7 @@
 
 echo
 echo "[*] Executing RHWSL8 post-installation procedure"
-echo "[*] If anything goes wrong from this step on, just re-run post-install.bash"
+echo "[*] If anything goes wrong from this step on, just re-run post-install.sh"
 echo
 
 default_name="RHWSL8"
