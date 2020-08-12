@@ -6,25 +6,21 @@
 
 The rootfs tarball of RHWSL built by yosukes has permission issues, causing the installation almost totally unusable. Therefore, I carried out my own implementation.
 
-After seriously studying the [End User License Agreement for the Red Hat Universal Base Image](https://www.redhat.com/licenses/EULA_Red_Hat_Universal_Base_Image_English_20190422.pdf), non-commercial redistribution of RHUBI is permittable. Besides, carrying the RED HAT mark is also permitted by default in this scenario.
+After seriously studying the [End User License Agreement for the Red Hat Universal Base Image](https://www.redhat.com/licenses/EULA_Red_Hat_Universal_Base_Image_English_20190422.pdf), non-commercial redistribution of RHUBI is allowed. Besides, carrying the RED HAT mark is also permitted by default in this scenario.
 
-Therefore, In the following commits, a pre-baked rootfs tarball shipping `genie` executable will be pushed into GitHub Release, so users don't have to bake them on their own. The usage of another WSL 2 instance with Docker access can also be omitted.
+Therefore, from now on a pre-baked WSL 2 distro, shipping `dotnet-runtime` and `genie`, will be published through GitHub Releases. Users don't have to bake them on their own any longer. The usage of another WSL 2 instance with Docker access will also be omitted.
 
-However I'd still expect that it's user's responsibility to gain full RHEL 8 experience using their own subscriptions. :)
+However, shipping RHEL binaries is still considered as prohibited, and therefore users still need to provide their own subscriptions to gain a full RHEL 8 experience.
 
 # Pre-Installation & Installation
 
-Update: Since `genie` is shipped with this rootfs tarball, make sure the default install version for new WSL distro is 2.
+1. Since `genie` is shipped, make sure the default install version for new WSL distro is two.
 
 ```
 wsl --set-default-version 2
 ```
 
-Run `install.sh` to bake the RHWSL8 rootfs tarball, register the distro and bootstrap a full RHEL 8 experience. This requires you to have a working instance of WSL 2 distro (e.g. Debian 10 from Windows Store) with Docker access.
-
-```
-wsl bash install.sh
-```
+2. Download and extract your `RHWSL8-release-*.tar` to somewhere you have write permission, execute `RHWSL8.exe` once for registering to WSL, execute twice for post-installation procedure, execute a third time to enjoy your RHEL experience.
 
 # Post-Installation
 
@@ -36,13 +32,10 @@ wsl -d rhwsl8 genie -s
 
 If you use Windows Terminal, you might want to add `"commandline": "wsl -d rhwsl8 genie -s",` to RHWSL8's configuration object.
 
-2. Register your installation with `subscription-manager` and install the `Server` environment group for a full RHEL 8 experience.
-
-Update: This is no longer needed due to the `post-install.sh` script.
+2. You may consider utilising your distro with a regular user, rather than the default root user. In the installation directory, issue the following command to do this.
 
 ```
-subscription-manager --register --auto-attach
-dnf groupinstall --allowerasing "Server"
+./RHWSL8.exe config --default-uid 1000
 ```
 
 3. Do not attempt to execute any power management command while the systemd bottle is activated, always use `wsl -t` or `wsl --shutdown`. You've been warned.
@@ -57,9 +50,7 @@ wsl -t rhwsl8 || wsl --shutdown
 
 # Known issues
 
-1. Sometimes `genie` may fail to initialise, yielding `Failed to create CoreCLR, HRESULT: 0x80004005`. Remember to terminate RHWSL8 instance on seeing this.
-
-Update: It looks like `genie -u` is the main cause of this problem, which also breaks mounting in all WSL 2 instances. The workaround is avoid using `genie -u`, use `wsl -t` or `wsl --shutdown` if you have to.
+1. Executing `genie -u` may break the whole WSL 2 Utility VM, yielding `Failed to create CoreCLR, HRESULT: 0x80004005` and causing broken mount on every WSL 2 instance. The workaround is avoid using `genie -u`, use `wsl -t` or `wsl --shutdown` when you need to.
 
 ```
 # Don't do
