@@ -55,10 +55,6 @@ systemctl reboot || systemctl poweroff
 wsl -t rhwsl8 || wsl --shutdown
 ```
 
-# GUI setup
-
-Setup of seamless GUI experience on WSL 2 requires installing "Server with GUI" environment group in RHWSL8, as well as installing 
-
 # Known issues
 
 1. Sometimes `genie` may fail to initialise, yielding `Failed to create CoreCLR, HRESULT: 0x80004005`. Remember to terminate RHWSL8 instance on seeing this.
