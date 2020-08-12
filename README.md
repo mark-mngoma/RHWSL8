@@ -6,7 +6,11 @@
 
 The rootfs tarball of RHWSL built by yosukes has permission issues, causing the installation almost totally unusable. Therefore, I carried out my own implementation.
 
-Please note that anyone who's redistributing RHEL binaries or private images to any other 3rd parties is violating RHEL's EULA. This repository, while not including any Red Hat binaries at all, just provides a script that helps you install RHEL 8 on WSL 2, **using your own legal subscriptions**.
+After seriously studying the [End User License Agreement for the Red Hat Universal Base Image](https://www.redhat.com/licenses/EULA_Red_Hat_Universal_Base_Image_English_20190422.pdf), non-commercial redistribution of RHUBI is permittable. Besides, carrying the RED HAT mark is also permitted by default in this scenario.
+
+Therefore, In the following commits, a pre-baked rootfs tarball shipping `genie` executable will be pushed into GitHub Release, so users don't have to bake them on their own. The usage of another WSL 2 instance with Docker access can also be omitted. Besides, a launcher with the cute little red hat will also be included.
+
+However I'd still expect that it's users responsibility to gain full RHEL 8 experience using their own subscriptions. :)
 
 # Pre-Installation & Installation
 
@@ -50,6 +54,10 @@ systemctl reboot || systemctl poweroff
 # Do
 wsl -t rhwsl8 || wsl --shutdown
 ```
+
+# GUI setup
+
+Setup of seamless GUI experience on WSL 2 requires installing "Server with GUI" environment group in RHWSL8, as well as installing 
 
 # Known issues
 
