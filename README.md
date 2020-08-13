@@ -2,15 +2,15 @@
 
 ![rhwsl8-systemd](https://user-images.githubusercontent.com/29014642/89607996-73f79e80-d8a6-11ea-9641-477290e42611.PNG)
 
-# Reason & Notes
+# Reason for this
 
 The rootfs tarball of RHWSL built by yosukes has permission issues, causing the installation almost totally unusable. Therefore, I carried out my own implementation.
 
-After seriously studying the [End User License Agreement for the Red Hat Universal Base Image](https://www.redhat.com/licenses/EULA_Red_Hat_Universal_Base_Image_English_20190422.pdf), non-commercial redistribution of RHUBI is allowed. Besides, carrying the RED HAT mark is also permitted by default in this scenario.
+After seriously studying the [End User License Agreement for the Red Hat Universal Base Image](https://www.redhat.com/licenses/EULA_Red_Hat_Universal_Base_Image_English_20190422.pdf), non-commercial redistribution of RHUBI is allowed.
 
-Therefore, from now on a pre-baked WSL 2 distro, shipping `dotnet-runtime` and `genie`, will be published through GitHub Releases. Users don't have to bake them on their own any longer. The usage of another WSL 2 instance with Docker access will also be omitted.
+Therefore, from now on a pre-baked WSL 2 distro, will be published through GitHub Releases. Users don't have to bake them on their own any longer. The usage of another WSL 2 instance with Docker access will also be omitted.
 
-However, shipping RHEL binaries is still considered as prohibited, and therefore users still need to provide their own subscriptions to gain a full RHEL 8 experience.
+However, shipping RHEL binaries is still considered as inappropriate, and therefore users still need to provide their own subscriptions to gain a full RHEL 8 experience.
 
 # Pre-Installation & Installation
 
@@ -21,6 +21,10 @@ wsl --set-default-version 2
 ```
 
 2. Download and extract your `RHWSL8-release-*.tar` to somewhere you have write permission, execute `RHWSL8.exe` once for registering to WSL, execute twice for post-installation procedure, execute a third time to enjoy your RHEL experience.
+
+![post-install-1](https://user-images.githubusercontent.com/29014642/90122235-8d5d8680-dd8f-11ea-923b-a67a9b406514.PNG)
+
+![post-install-2](https://user-images.githubusercontent.com/29014642/90122257-94849480-dd8f-11ea-827a-12497dc54b44.PNG)
 
 # Post-Installation
 
@@ -51,6 +55,8 @@ wsl -t rhwsl8 || wsl --shutdown
 # Known issues
 
 1. Executing `genie -u` may break the whole WSL 2 Utility VM, yielding `Failed to create CoreCLR, HRESULT: 0x80004005` and causing broken mount on every WSL 2 instance. The workaround is avoid using `genie -u`, use `wsl -t` or `wsl --shutdown` when you need to.
+
+Update: In the latest `1.27` release of `genie`, this issue is resolved. However, mounting is still laggy and will cause `The command 'docker' could not be found in this WSL 2 distro.` when you issue `docker` in any WSL distro. Therefore, it's still recommended to use `wsl -t` or `wsl --shutdown` from this perspective.
 
 ```
 # Don't do
