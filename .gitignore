@@ -4,3 +4,4 @@
 *.vhdx
 RHWSL8
 out
+.docker_temp*

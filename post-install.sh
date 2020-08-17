@@ -1,7 +1,9 @@
 #! /bin/bash
 
+distro_name="RHWSL8"
+
 echo
-echo "[*] Executing RHWSL8 post-installation procedure"
+echo "[*] Executing $distro_name post-installation procedure"
 echo
 
 echo "[*] Registering & Installing Server environment group"
@@ -16,6 +18,9 @@ echo "[*] Creating new regular user with UID 1000"
 read -p "New username: " -r wsl_username
 groupdel -f docker || ( code=$?; [[ $code != '6' ]] && exit $code )
 useradd -u 1000 -G wheel $wsl_username || exit $?
+
+echo
+echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/99-allow-wheels
 passwd $wsl_username || exit $?
 
 groupadd docker || exit $?
