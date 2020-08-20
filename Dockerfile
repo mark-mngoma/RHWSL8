@@ -21,4 +21,4 @@ COPY --from=builder /tmp/systemd-genie/usr /usr
 COPY ./post-install.sh /root/post-install.sh
 
 WORKDIR /root
-RUN cp .bashrc .bashrc~ && echo "source post-install.sh" >> .bashrc
+RUN cp .bashrc .bashrc~ && echo "source /root/post-install.sh" >> .bashrc

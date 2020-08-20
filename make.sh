@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 distro_name="RHWSL8"
 image_name="rhwsl8-rootfs:local"
@@ -18,7 +18,8 @@ echo "[*] Baking complete"
 
 echo
 echo "[*] Downloading wsldl"
-curl -L https://github.com/yuk7/wsldl/releases/download/20040300/Launcher.exe -o $distro_name/$distro_name.exe || exit $?
+curl -L https://github.com/yuk7/wsldl/releases/download/20040300/Launcher.exe \
+    -o $distro_name/$distro_name.exe || exit $?
 
 echo
 echo "[*] Downloading RH icon"
