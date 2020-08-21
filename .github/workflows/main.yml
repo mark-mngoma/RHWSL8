@@ -11,11 +11,15 @@ jobs:
     runs-on: "ubuntu-latest"
 
     steps:
-      - name: "Build & test"
+      - name: "Checkout repository"
+        uses: "actions/checkout@latest"
+
+      - name: "Bake distro"
         run: |
           sh make.sh
 
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - name: "Publish new version"
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
