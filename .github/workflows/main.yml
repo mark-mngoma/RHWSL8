@@ -11,8 +11,8 @@ jobs:
     runs-on: "ubuntu-latest"
 
     steps:
-      - name: "Checkout repository"
-        uses: "actions/checkout@latest"
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
 
       - name: "Bake distro"
         run: |
